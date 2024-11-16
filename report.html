@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management - Reports</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- jsPDF library -->
+  <style>
+    body {
+      background-color: #f5f5dc; /* Light beige background */
+    }
+
+    .navbar {
+      background-color: #8b4513; /* Saddle brown */
+    }
+
+    .navbar-brand, .nav-link {
+      color: #f8f1e4 !important; /* Light beige text for contrast */
+    }
+
+    .navbar-brand:hover, .nav-link:hover {
+      color: #ffe08a !important; /* Lighter yellow hover */
+    }
+
+    .report-section {
+      margin-top: 20px;
+    }
+
+    .card-header {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Inventory System</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="product.html">Inventory</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="report.html">Reports</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="supplier.html">Supplier</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="logout.html">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container report-section">
+    <h1 class="text-center" style="color: #8b4513;">Inventory Reports</h1>
+    <div class="row">
+
+      <!-- Inventory Summary -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            Inventory Summary
+          </div>
+          <div class="card-body">
+            <p id="total-stock">Total Stock: </p>
+            <p id="low-stock">Low Stock Items: </p>
+            <p id="categories">Categories: </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sales Report -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-success text-white">
+            Sales Report
+          </div>
+          <div class="card-body">
+            <p id="total-sales">Total Sales: </p>
+            <p id="top-product">Top-Selling Product: </p>
+            <p id="sales-month">Sales This Month: </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row report-section">
+
+      <!-- Stock Movement -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-warning text-dark">
+            Stock Movement
+          </div>
+          <div class="card-body">
+            <p id="stock-in">Stock Inflow: </p>
+            <p id="stock-out">Stock Outflow: </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Report -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-danger text-white">
+            Financial Report
+          </div>
+          <div class="card-body">
+            <p id="total-revenue">Total Revenue: </p>
+            <p id="profit-margin">Profit Margin: </p>
+            <p id="inventory-value">Inventory Value: </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Download Report Button -->
+    <div class="text-center report-section">
+      <button id="download-btn" class="btn btn-primary">Download Report (PDF)</button>
+    </div>
+
+  </div>
+
+  <script>
+    // Sample inventory data
+    const products = [
+      { name: 'Laptop', category: 'Electronics', stock: 20, sold: 15, price: 1000 },
+      { name: 'Headphones', category: 'Accessories', stock: 5, sold: 10, price: 200 },
+      { name: 'Chair', category: 'Furniture', stock: 15, sold: 5, price: 150 },
+      { name: 'Desk', category: 'Furniture', stock: 8, sold: 3, price: 300 },
+      { name: 'Monitor', category: 'Electronics', stock: 10, sold: 6, price: 500 },
+    ];
+
+    function calculateReports() {
+      const totalStock = products.reduce((sum, item) => sum + item.stock, 0);
+      const lowStock = products.filter(item => item.stock < 10).length;
+      const categories = new Set(products.map(item => item.category)).size;
+
+      const totalSales = products.reduce((sum, item) => sum + (item.sold * item.price), 0);
+      const topProduct = products.sort((a, b) => b.sold - a.sold)[0].name;
+      const salesMonth = 5000; // Example value for this month
+
+      const stockInflow = 800; // Example value
+      const stockOutflow = 750; // Example value
+
+      const totalRevenue = totalSales;
+      const profitMargin = 30; // Example value
+      const inventoryValue = products.reduce((sum, item) => sum + (item.stock * item.price), 0);
+
+      // Update the DOM
+      document.getElementById('total-stock').innerText = `Total Stock: ${totalStock} items`;
+      document.getElementById('low-stock').innerText = `Low Stock Items: ${lowStock}`;
+      document.getElementById('categories').innerText = `Categories: ${categories}`;
+
+      document.getElementById('total-sales').innerText = `Total Sales: $${totalSales}`;
+      document.getElementById('top-product').innerText = `Top-Selling Product: ${topProduct}`;
+      document.getElementById('sales-month').innerText = `Sales This Month: $${salesMonth}`;
+
+      document.getElementById('stock-in').innerText = `Stock Inflow: ${stockInflow} items`;
+      document.getElementById('stock-out').innerText = `Stock Outflow: ${stockOutflow} items`;
+
+      document.getElementById('total-revenue').innerText = `Total Revenue: $${totalRevenue}`;
+      document.getElementById('profit-margin').innerText = `Profit Margin: ${profitMargin}%`;
+      document.getElementById('inventory-value').innerText = `Inventory Value: $${inventoryValue}`;
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(18);
+      doc.text('Inventory Report', 10, 10);
+      doc.setFontSize(12);
+      
+      let content = `
+      Total Stock: ${document.getElementById('total-stock').innerText}
+      Low Stock Items: ${document.getElementById('low-stock').innerText}
+      Categories: ${document.getElementById('categories').innerText}
+      
+      Total Sales: ${document.getElementById('total-sales').innerText}
+      Top-Selling Product: ${document.getElementById('top-product').innerText}
+      Sales This Month: ${document.getElementById('sales-month').innerText}
+      
+      Stock Inflow: ${document.getElementById('stock-in').innerText}
+      Stock Outflow: ${document.getElementById('stock-out').innerText}
+      
+      Total Revenue: ${document.getElementById('total-revenue').innerText}
+      Profit Margin: ${document.getElementById('profit-margin').innerText}
+      Inventory Value: ${document.getElementById('inventory-value').innerText}
+      `;
+
+      doc.text(content, 10, 30);
+      doc.save('Inventory_Report.pdf');
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateReports);
+    document.getElementById('download-btn').addEventListener('click', downloadPDF);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

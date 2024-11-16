@@ -1,0 +1,305 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #F3ECE1; /* Light cream background */
+}
+
+/* Main Container */
+#dashboardMainContainer {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+.dashboard_sidebar {
+    width: 20%;
+    background-color: #9e8460; /* Light brown */
+    color: #4E342E; /* Dark brown text */
+    padding-top: 20px;
+    height: 100vh;
+    transition: width 0.3s ease;
+}
+
+.dashboard_logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+    color: #4E342E; /* Dark brown text */
+    margin-bottom: 20px;
+}
+
+.dashboard_sidebar_user {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.dashboard_sidebar_user img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid #4E342E; /* Dark brown border */
+}
+
+.dashboard_sidebar_user span {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #3E2723; /* Darker brown text */
+}
+
+/* Sidebar Menus */
+.dashboard_sidebar_menus {
+    width: 100%;
+}
+
+.dashboard_menu_lists {
+    list-style-type: none;
+}
+
+.dashboard_menu_lists li {
+    margin: 15px 0;
+}
+
+.dashboard_menu_lists li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #4E342E; /* Dark brown */
+    padding: 10px 15px;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+.dashboard_menu_lists li.menuActive a,
+.dashboard_menu_lists li a:hover {
+    background-color: #d6c6b4; /* Soft brown for active/hover */
+    color: #3E2723; /* Darker brown */
+    border-radius: 5px;
+}
+
+.menuText {
+    margin-left: 10px;
+}
+
+/* Top Navigation */
+.dashboard_topNav {
+    background-color: #daae88; /* Creamy shade */
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard_topNav a {
+    color: #3E2723; /* Dark brown */
+    font-size: 1.1em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard_topNav a i {
+    margin-right: 5px;
+}
+
+/* Main Content Area */
+#dashboard_content_container {
+    width: 80%;
+    padding: 20px;
+    transition: width 0.3s ease;
+}
+
+.dashboard_content {
+    background-color: #f3ece4; /* Very light brown */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard_content_main {
+    margin-top: 20px;
+}
+
+/* Responsive Adjustments 
+@media (max-width: 768px) {
+    .dashboard_sidebar {
+        width: 60px;
+    }
+
+    #dashboard_content_container {
+        width: calc(100% - 60px);
+    }
+
+    .menuText {
+        display: none;
+    }
+
+    .dashboard_sidebar_user span {
+        display: none;
+    }
+}
+*/
+.appForm {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for form labels */
+.appForm label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style for input fields */
+.appFormInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+/* Focus effect for input fields */
+.appFormInput:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Style for the submit button */
+button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    background-color: #10a13c;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for button */
+button[type="submit"]:hover {
+    background-color: #0f6b2b;
+}
+
+/* Style for font-awesome icon inside button */
+button[type="submit"] i {
+    margin-right: 5px;
+}
+/* ... other CSS styles ... */
+
+.dashboard_content_main {
+    padding: 20px;
+}
+
+.inventory_metrics_container, .sales_performance_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.metric_card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 25%;
+    text-align: center;
+}
+
+.metric_card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.metric_card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+#sales_chart {
+    width: 60%;
+    height: 300px;
+}
+
+.sales_details {
+    width: 40%;
+    padding-left: 20px;
+}
+
+#recent_purchases {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#recent_purchases th, #recent_purchases td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#recent_purchases th {
+    background-color: #f2f2f2;
+}
+
+
+
+/* ... other CSS styles ... */
+
+@media (max-width: 768px) {
+    .dashboard_sidebar {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+  
+    .dashboard_sidebar.open {
+      transform: translateX(0);
+    }
+  
+    #dashboard_content_container {
+      width: 100%;
+      margin-left: 0;
+    }
+  
+    .dashboard_topNav {
+      display: none;
+    }
+  
+    #toggleBtn {
+      display: block;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1001;
+    }
+  }
+/* Add more specific styling for pop-up effects, charts, and tables as needed */

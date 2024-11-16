@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMS - Login/Sign Up</title>
+  <link rel="stylesheet" href="ims-style.css">
+</head>
+<body>
+  <div class="login-header">
+    <h1>IMS Login</h1>
+    <h3>Inventory Management System</h3>
+  </div>
+
+  <div class="container" id="container">
+    
+    <!-- Sign In Form -->
+    <div class="form-container sign-in-container">
+      <form action="dashboard.html">
+        <h2>Sign In</h2>
+        <div class="login-input">
+          <label for="signin-username">Username</label>
+          <input type="text" name="signin-username" id="signin-username" placeholder="Enter your username" required>
+          
+          <label for="signin-password">Password</label>
+          <input type="password" name="signin-password" id="signin-password" placeholder="Enter your password" required>
+        </div>
+        <a href="#">Forgot your password?</a>
+        <div class="login-button">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div class="form-container sign-up-container">
+      <form action="dashboard.html">
+        <h2>Create Account</h2>
+        <div class="login-input">
+          <label for="signup-username">Username</label>
+          <input type="text" name="signup-username" id="signup-username" placeholder="Choose a username" required>
+
+          <label for="signup-email">Email</label>
+          <input type="email" name="signup-email" id="signup-email" placeholder="Enter your email" required>
+
+          <label for="signup-password">Password</label>
+          <input type="password" name="signup-password" id="signup-password" placeholder="Create a password" required>
+        </div>
+        <div class="login-button">
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Overlay for toggling -->
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h2>Welcome Back!</h2>
+          <p>To stay connected, log in with your personal info</p>
+          <button class="ghost" id="signIn">Sign In</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h2>Hello, Friend!</h2>
+          <p>Enter your details to start your journey with us</p>
+          <button class="ghost" id="signUp">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+      container.classList.add('right-panel-active');
+    });
+
+    signInButton.addEventListener('click', () => {
+      container.classList.remove('right-panel-active');
+    });
+  </script>
+</body>
+</html>
+

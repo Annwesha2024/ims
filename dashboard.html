@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Inventory Management System</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="https://use.fontawesome.com/0c7a3095b5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js library -->
+</head>
+<body>
+  <div id="dashboardMainContainer">
+
+    <div class="dashboard_sidebar" id="dashboard_sidebar">
+      <h3 class="dashboard_logo">IMS</h3>
+      <div class="dashboard_sidebar_user">
+        <img src="user.webp" alt="User Image">
+        <span>User</span>
+      </div>
+      <div class="dashboard_sidebar_menus">
+        <ul class="dashboard_menu_lists">
+          <li class="menuActive">
+            <a href="#"><i class="fa fa-dashboard"></i><span class="menuText">Dashboard</span></a>
+          </li>
+          <li>
+            <a href="report.html"><i class="fa fa-book"></i><span class="menuText">Report</span></a>
+          </li>
+          <li>
+            <a href="product.html"><i class="fa fa-archive"></i><span class="menuText">Product</span></a>
+          </li>
+          <li>
+            <a href="supplier.html"><i class="fa fa-truck"></i><span class="menuText">Supplier</span></a>
+          </li>
+          <li>
+            <a href="purchase.html"><i class="fa fa-shopping-cart"></i><span class="menuText">Purchase Order</span></a>
+          </li>
+          <li>
+            <a href="add_user.html"><i class="fa fa-user-plus"></i><span class="menuText">Add User</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="dashboard_content_container">
+
+      <div class="dashboard_topNav">
+        <a href="#" id="toggleBtn"><i class="fa fa-bars"></i></a>
+        <a href="#" id="logoutBtn"><i class="fa fa-power-off"></i> Log-out</a>
+      </div>
+
+      <div class="dashboard_content_main">
+
+        <h2>Inventory Metrics</h2>
+        <div class="inventory_metrics_container">
+          <div class="metric_card">
+            <h3>Total Inventory Value</h3>
+            <p id="total_inventory_value">$<span>10,000.00</span></p>
+          </div>
+          <div class="metric_card">
+            <h3>Inventory Turnover Rate</h3>
+            <p id="inventory_turnover_rate">5</p>
+          </div>
+          <div class="metric_card">
+            <h3>Stock-to-Sales Ratio</h3>
+            <p id="stock_to_sales_ratio">2</p>
+          </div>
+          <div class="metric_card">
+            <h3>Low Stock Alerts</h3>
+            <ul id="low_stock_alerts">
+              <!-- Low stock items will appear here -->
+            </ul>
+          </div>
+        </div>
+
+        <h2>Sales Performance</h2>
+        <div class="sales_performance_container">
+          <canvas id="sales_chart" width="400" height="200"></canvas>
+          <div class="sales_details">
+            <p>Total Revenue This Month: $<span id="total_revenue">5,000.00</span></p>
+            <p>Top-Selling Products: </p>
+          </div>
+        </div>
+
+        <h2>Product Category Distribution</h2>
+        <div class="product_category_container">
+          <canvas id="category_pie_chart" width="400" height="200"></canvas>
+        </div>
+
+        <h2>Recent Purchases</h2>
+        <table id="recent_purchases" class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Supplier</th>
+              <th>Date</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Recent purchases will be populated here -->
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample Data for Inventory and Sales
+    const products = [
+      { name: 'Laptop', category: 'Electronics', stock: 20, sold: 15, price: 1000 },
+      { name: 'Headphones', category: 'Accessories', stock: 5, sold: 10, price: 200 },
+      { name: 'Chair', category: 'Furniture', stock: 15, sold: 5, price: 150 },
+      { name: 'Desk', category: 'Furniture', stock: 8, sold: 3, price: 300 },
+      { name: 'Monitor', category: 'Electronics', stock: 10, sold: 6, price: 500 },
+    ];
+
+    const recentPurchases = [
+      { product: 'Laptop', supplier: 'TechStore', date: '2024-11-01', amount: '$5000' },
+      { product: 'Headphones', supplier: 'SoundCo', date: '2024-10-25', amount: '$2000' },
+      { product: 'Chair', supplier: 'FurnitureWorld', date: '2024-11-05', amount: '$750' },
+    ];
+
+    // Fill in the low stock items and recent purchases
+    function loadDashboardData() {
+      const lowStockItems = products.filter(product => product.stock < 10).map(product => product.name);
+      const lowStockAlerts = document.getElementById('low_stock_alerts');
+      lowStockAlerts.innerHTML = lowStockItems.map(item => `<li>${item}</li>`).join('');
+
+      const purchasesTable = document.getElementById('recent_purchases').getElementsByTagName('tbody')[0];
+      recentPurchases.forEach(purchase => {
+        const row = purchasesTable.insertRow();
+        row.innerHTML = `<td>${purchase.product}</td><td>${purchase.supplier}</td><td>${purchase.date}</td><td>${purchase.amount}</td>`;
+      });
+    }
+
+    // Sales Bar Chart (Revenue per Month)
+    const salesData = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+      datasets: [{
+        label: 'Sales Revenue',
+        data: [5000, 4000, 6000, 7000, 8000, 5000], // Example data
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    };
+    
+    const salesChart = new Chart(document.getElementById('sales_chart'), {
+      type: 'bar',
+      data: salesData,
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Category Pie Chart
+    const categoryData = {
+      labels: ['Electronics', 'Accessories', 'Furniture'],
+      datasets: [{
+        data: [40, 20, 40], // Example data
+        backgroundColor: ['#ff9999','#66b3ff','#99ff99'],
+        hoverOffset: 4
+      }]
+    };
+
+    const categoryPieChart = new Chart(document.getElementById('category_pie_chart'), {
+      type: 'pie',
+      data: categoryData
+    });
+
+    // Load Dashboard Data on page load
+    window.onload = loadDashboardData;
+  </script>
+
+</body>
+</html>

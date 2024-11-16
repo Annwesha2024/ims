@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management - Purchase Orders</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5dc; /* Light beige background */
+    }
+
+    .navbar {
+      background-color: #8b4513; /* Saddle brown */
+    }
+
+    .navbar-brand, .nav-link {
+      color: #f8f1e4 !important; /* Light beige text */
+    }
+
+    .navbar-brand:hover, .nav-link:hover {
+      color: #ffe08a !important; /* Lighter yellow hover */
+    }
+
+    .page-header {
+      margin-top: 20px;
+      color: #8b4513;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #8b4513;
+      border-color: #8b4513;
+    }
+
+    .btn-primary:hover {
+      background-color: #a0522d;
+      border-color: #a0522d;
+    }
+
+    .card-header {
+      font-weight: bold;
+    }
+
+    .table th, .table td {
+      vertical-align: middle;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Inventory System</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="product.html">Inventory</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="report.html">Reports</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="purchase.html">Purchase Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="logout.html">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mt-4">
+    <h1 class="page-header">Purchase Order Management</h1>
+
+    <!-- Add New Purchase Order Button -->
+    <div class="text-end mb-3">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPurchaseOrderModal">Create New Purchase Order</button>
+    </div>
+
+    <!-- Purchase Order Table -->
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>PO ID</th>
+            <th>Supplier Name</th>
+            <th>Order Date</th>
+            <th>Expected Delivery</th>
+            <th>Total Cost</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="purchaseOrderTableBody">
+          <!-- Existing Purchase Orders -->
+          <tr>
+            <td>PO1001</td>
+            <td>ABC Supplies</td>
+            <td>2024-11-10</td>
+            <td>2024-11-20</td>
+            <td>$5,000</td>
+            <td><span class="badge bg-warning">Pending</span></td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-info btn-sm">View</button>
+                <button class="btn btn-warning btn-sm">Edit</button>
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add Purchase Order Modal -->
+  <div class="modal fade" id="addPurchaseOrderModal" tabindex="-1" aria-labelledby="addPurchaseOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPurchaseOrderModalLabel">Create New Purchase Order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="purchaseOrderForm">
+            <div class="mb-3">
+              <label for="supplier" class="form-label">Supplier</label>
+              <input type="text" class="form-control" id="supplier" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderDate" class="form-label">Order Date</label>
+              <input type="date" class="form-control" id="orderDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="deliveryDate" class="form-label">Expected Delivery Date</label>
+              <input type="date" class="form-control" id="deliveryDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="totalCost" class="form-label">Total Cost</label>
+              <input type="number" class="form-control" id="totalCost" required>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Status</label>
+              <select class="form-select" id="status" required>
+                <option value="pending">Pending</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Purchase Order</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const purchaseOrderForm = document.getElementById('purchaseOrderForm');
+    const purchaseOrderTableBody = document.getElementById('purchaseOrderTableBody');
+    let poCounter = 1001; // Starting from existing PO number
+
+    purchaseOrderForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get form values
+      const supplier = document.getElementById('supplier').value;
+      const orderDate = document.getElementById('orderDate').value;
+      const deliveryDate = document.getElementById('deliveryDate').value;
+      const totalCost = document.getElementById('totalCost').value;
+      const status = document.getElementById('status').value;
+
+      poCounter++;
+
+      // Add new row to table
+      const newRow = `
+        <tr>
+          <td>PO${poCounter}</td>
+          <td>${supplier}</td>
+          <td>${orderDate}</td>
+          <td>${deliveryDate}</td>
+          <td>$${totalCost}</td>
+          <td><span class="badge ${status === 'pending' ? 'bg-warning' : status === 'shipped' ? 'bg-info' : 'bg-success'}">${status.charAt(0).toUpperCase() + status.slice(1)}</span></td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn btn-info btn-sm">View</button>
+              <button class="btn btn-warning btn-sm">Edit</button>
+              <button class="btn btn-danger btn-sm">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      purchaseOrderTableBody.innerHTML += newRow;
+
+      // Reset form and close modal
+      purchaseOrderForm.reset();
+      const modal = bootstrap.Modal.getInstance(document.getElementById('addPurchaseOrderModal'));
+      modal.hide();
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Free Trial Demos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5dc; /* Light beige background */
+    }
+
+    .navbar {
+      background-color: #8b4513; /* Saddle brown */
+    }
+
+    .navbar-brand, .nav-link {
+      color: #f8f1e4 !important; /* Light beige text for contrast */
+    }
+
+    .navbar-brand:hover, .nav-link:hover {
+      color: #ffe08a !important; /* Lighter yellow hover */
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    .blog-title {
+      color: #8b4513;
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    .blog-description {
+      color: #8b4513;
+      font-size: 1.2rem;
+    }
+
+    .blog-section {
+      margin-top: 40px;
+    }
+
+    .blog-card {
+      margin-bottom: 30px;
+      border: none;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: auto;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .blog-card-body {
+      padding: 20px;
+    }
+
+    .cta-btn {
+      background-color: #8b4513;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      margin-top: 30px;
+      text-align: center;
+      display: block;
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btn:hover {
+      background-color: #7a3f1b;
+      text-decoration: none;
+    }
+
+    /* Added for alignment consistency */
+    .row {
+      justify-content: center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">IMS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home Page</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Blog Header -->
+  <div class="blog-header">
+    <h1 class="blog-title">Explore Our Inventory Management System</h1>
+    <p class="blog-description">Check out the demo of our system and experience the interface and features before signing up for a free trial!</p>
+  </div>
+
+  <!-- Blog Section -->
+  <div class="container blog-section">
+    <div class="row">
+      <!-- Dashboard Snapshot -->
+      <div class="col-md-4">
+        <div class="card blog-card">
+          <img src="dashboard.PNG" alt="Dashboard Snapshot">
+          <div class="card-body">
+            <h5 class="card-title">Dashboard Overview</h5>
+            <p class="card-text">Get a quick overview of your inventory, sales, and performance with our intuitive dashboard. View key metrics at a glance.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory Snapshot -->
+      <div class="col-md-4">
+        <div class="card blog-card">
+          <img src="product.PNG" alt="Inventory Snapshot">
+          <div class="card-body">
+            <h5 class="card-title">Inventory Management</h5>
+            <p class="card-text">Manage and track your inventory seamlessly. Keep tabs on stock levels, product details, and low stock alerts in real-time.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reports Snapshot -->
+      <div class="col-md-4">
+        <div class="card blog-card">
+          <img src="report.PNG" alt="Reports Snapshot">
+          <div class="card-body">
+            <h5 class="card-title">Detailed Reports</h5>
+            <p class="card-text">Generate reports for inventory, sales, and financial metrics. Analyze data to make informed decisions about your business.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stock Movement Snapshot -->
+      <div class="col-md-4">
+        <div class="card blog-card">
+          <img src="supplier.PNG" alt="Stock Movement Snapshot">
+          <div class="card-body">
+            <h5 class="card-title">Stock Movement</h5>
+            <p class="card-text">Track the inflow and outflow of products in real-time. Stay updated with stock movements and prevent inventory shortages.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center">
+      <a href="signup.html" class="cta-btn">Sign Up for Free Trial</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
